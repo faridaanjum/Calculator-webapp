@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.PrintWriter;
 
 
 @WebServlet("/ServletController")
@@ -26,26 +27,48 @@ import javax.servlet.http.HttpSession;
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException, IOException 
 	{
-		// Create an object of BasicCalc class
+		BasicCalc det=new BasicCalc();
+		double a=Double.valueOf(req.getParameter("a"));
+		double b=Double.valueOf(req.getParameter("b"));
+		det.setA(a);
+		det.setB(b);
+		String operation=req.getParameter("operation");
+		//PrintWriter pw=resp.getWriter();
 		
-		//get parameter with req.getparameter() method and 
-		
-		// set the values with set parameter into variable a, b
-		
-		// get parameter operation 
-		
-	//	switch (operation)		
+	switch (operation)		
+	
 		{
-		//write switch cases for calling different method of operations
+	case "Add":
+		c=det.Add();
+	    // pw.println(c);
+		break;
+	case "Subtract":
+		c=det.Subtract();
+		//pw.println(c);
+		break;
+	case "Multiply":
+		c=det.Multiply();
+		//pw.println(c);;
+		break;
+	case "Division":
+		c=det.Divide();
+		//pw.println(c);
+		break;
+		default:System.out.println("wrong choice");
+		//pw.close();
 		}
+	
+	req.setAttribute("answer",c);
 		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
-		rd.forward(req, resp); 
+		rd.forward(req, resp);
+		
 		} 
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException, IOException {
 	doGet(req, resp);
+	//req.setAttribute("answer",c);
 	}
 }
 	
